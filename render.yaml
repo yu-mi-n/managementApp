@@ -1,0 +1,2 @@
+gunicorn config.wsgi, 
+ pip3 install -r requirements.txt
