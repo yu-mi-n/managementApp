@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SnackTalk</title>
+    {% load static %}
+    <link href="{% static 'bootstrap.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-turquoise: #00B4D8;
+            --primary-dark: #0077B6;
+            --accent-orange: #F77F00;
+            --accent-yellow: #FCBF49;
+            --bg-offwhite: #F8FAFC;
+        }
+        body { background-color: #000000; font-family: 'Segoe UI', sans-serif; color: #2B2D42; }
+        .app-container {
+            max-width: 414px; margin: 0 auto; background-color: var(--bg-offwhite);
+            min-height: 100vh; position: relative; padding-bottom: 70px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            /* 以下3行を追加：Banig（編み込みマット）風のテクスチャ */
+            background-image: linear-gradient(45deg, rgba(0, 180, 216, 0.03) 25%, transparent 25%, transparent 75%, rgba(0, 180, 216, 0.03) 75%, rgba(0, 180, 216, 0.03)), 
+                              linear-gradient(45deg, rgba(0, 180, 216, 0.03) 25%, transparent 25%, transparent 75%, rgba(0, 180, 216, 0.03) 75%, rgba(0, 180, 216, 0.03));
+            background-size: 20px 20px;
+            background-position: 0 0, 10px 10px;
+        }
+        /* Common Header */
+        /* 共通ヘッダー */
+        .app-header {
+            position: relative; /* 葉っぱの絶対配置の基準にするため追加 */
+            overflow: hidden; /* 葉っぱがヘッダーの外にはみ出さないようにする */
+            background: linear-gradient(135deg, var(--primary-turquoise), var(--primary-dark));
+            color: white; 
+            padding: 20px 20px 15px 20px; 
+            border-bottom-left-radius: 20px; 
+            border-bottom-right-radius: 20px;
+        }
+
+        /* ヤシの木の装飾 */
+        .palm-leaf {
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            width: 120px;
+            height: 120px;
+            opacity: 0.15; /* 透明度を下げて薄く表示 */
+            transform: rotate(15deg);
+            pointer-events: none; /* クリックの邪魔にならないようにする */
+            z-index: 1;
+        }
+
+        /* ヘッダー内のテキストなどが葉っぱの下に隠れないようにする */
+        .app-header > div {
+            position: relative;
+            z-index: 2;
+        }
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed; bottom: 0; max-width: 414px; width: 100%;
+            background: white; display: flex; justify-content: space-around;
+            padding: 12px 0; border-top: 1px solid #eee; z-index: 1000;
+        }
+        .nav-item { text-align: center; color: #a0aec0; text-decoration: none; font-size: 0.75rem; }
+        .nav-item.active { color: var(--primary-turquoise); }
+        .nav-item i { display: block; font-size: 1.2rem; margin-bottom: 2px; }
+        
+        .app-header {
+        background: linear-gradient(135deg, var(--primary-turquoise), var(--primary-dark));
+        color: white; 
+        padding: 20px 20px 15px 20px; 
+        border-bottom-left-radius: 20px; 
+        border-bottom-right-radius: 20px;
+        }
+
+        /* Full-screen common margin container */
+        .content-wrapper {
+            padding: 24px 20px 90px 20px; 
+        }
+
+        {% block extra_css %}{% endblock %}
+    </style>
+</head>
+<body>
+<div class="app-container">
+    <!-- Header Block -->
+    <div class="app-header">
+        <img src="{% static 'palm.png' %}" alt="palm" class="palm-leaf">
+
+        <div class="d-flex justify-content-between align-items-center">
+            <h5 class="mb-0 fw-bold">{% block header_title %}SnackTalk{% endblock %}</h5>
+            <i class="fas fa-bell"></i>
+        </div>
+        <div class="mt-2 text-white-50 small">{% block header_subtitle %}{% endblock %}</div>
+    </div>
+
+    <!-- Main Content Block -->
+     <div class="content-wrapper">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <!-- Bottom Navigation -->
+    {% block bottom_nav %}
+    <div class="bottom-nav">
+        <a href="{% url 'dashboard' %}" class="nav-item {% if request.path == '/' %}active{% endif %}">
+            <i class="fas fa-home"></i>Home
+        </a>
+        <a href="{% url 'learning' %}" class="nav-item {% if '/learning/' in request.path %}active{% endif %}">
+            <i class="fas fa-book"></i>Learn
+        </a>
+        <a href="{% url 'standby' %}" class="nav-item">
+            <i class="fas fa-comments"></i>Talk
+        </a>
+        <a href="#" class="nav-item">
+            <i class="fas fa-wallet"></i>Wallet
+        </a>
+    </div>
+    {% endblock %}
+</div>
+{% block extra_js %}{% endblock %}
+</body>
+</html>

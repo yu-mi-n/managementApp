@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block header_title %}Learning{% endblock %}
+{% block header_subtitle %}1. Basic Greetings & First Impressions{% endblock %}
+
+{% block extra_css %}
+    /* 動画プレイヤーエリア */
+    .video-player {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 16 / 9; 
+        min-height: 220px;
+        border-radius: 12px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end; 
+        margin-bottom: 20px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        overflow: hidden;
+    }
+    
+    /* 動画コントロールバー */
+    .video-controls {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 12px 15px;
+        background: rgba(0, 0, 0, 0.85); 
+        display: flex;
+        align-items: center;
+        color: #ffffff;
+        z-index: 100;
+    }
+    
+    /* 再生ボタン */
+    .play-btn-main {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 3.5rem;
+        color: rgba(255, 255, 255, 0.9);
+        cursor: pointer;
+        transition: 0.2s;
+        z-index: 10;
+    }
+    .play-btn-main:active { transform: translate(-50%, -50%) scale(0.9); }
+    
+    .lesson-info { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+    .btn-back { background-color: #f1f5f9; color: #475569; font-weight: bold; border-radius: 20px; border: none; padding: 10px 20px; margin-bottom: 15px; display: inline-block; text-decoration: none; }
+{% endblock %}
+
+{% block content %}
+<!-- 戻るボタン -->
+<a href="{% url 'learning' %}" class="btn-back"><i class="fas fa-arrow-left me-2"></i>Back to List</a>
+
+<!-- 動画プレイヤーモック -->
+<div class="video-player" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url({% static 'manner.jpg' %}); background-size: cover; background-position: center;">   
+    <i class="fas fa-play-circle play-btn-main"></i>
+    <div class="video-controls">
+        <i class="fas fa-pause me-3"></i>
+        <div class="progress flex-grow-1" style="height: 6px; background: rgba(255,255,255,0.3); border-radius: 3px;">
+            <div class="progress-bar bg-success" style="width: 45%; border-radius: 3px;"></div>
+        </div>
+        <span class="ms-3 small" style="font-family: monospace; font-weight: bold;">04:15 / 10:15</span>
+    </div>
+</div>
+
+<!-- 授業の詳細情報 -->
+<div class="lesson-info">
+    <span class="badge bg-success mb-2">Completed</span>
+    <h5 class="fw-bold mb-3">1. Basic Greetings & First Impressions</h5>
+    <p class="text-muted small mb-4">In this session, you will learn appropriate greetings when communicating with Japanese people, along with facial expressions and tone of voice to make a good first impression. Please proceed to the check test after watching the video.</p>
+    
+    <button class="btn btn-outline-success w-100 fw-bold rounded-pill" onclick="alert('Starting the confirmation test')">
+        <i class="fas fa-edit me-2"></i>Take Confirmation Test
+    </button>
+</div>
+{% endblock %}

@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block header_title %}Hello, {{ name }}!{% endblock %}
+{% block header_subtitle %}Let's learn and earn today{% endblock %}
+
+{% block extra_css %}
+<style>
+    .balance-area { 
+        text-align: center; 
+        padding: 24px 20px; 
+        background: white; 
+        border-radius: 16px; 
+        margin-bottom: 24px; 
+        box-shadow: 0 4px 12px rgba(0,0,0,0.05); 
+    }
+    .balance-amount { font-size: 2.5rem; font-weight: 800; }
+    .progress { height: 12px; border-radius: 6px; margin: 12px 0; }
+    .progress-bar { background: linear-gradient(90deg, var(--accent-yellow), var(--accent-orange)); }
+    .btn-withdraw { 
+        background: linear-gradient(90deg, #007A33, #FFC72C); /* パラワングリーンとイエロー */
+        color: white; 
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.3); /* 文字を読みやすくする影 */
+        border-radius: 25px; 
+        padding: 12px; 
+        width: 100%; 
+        border: none; 
+        font-weight: bold; 
+    }
+    
+    .task-card { 
+        background: white; 
+        border-radius: 16px; 
+        padding: 16px 20px; 
+        margin-bottom: 16px; 
+        display: flex; 
+        align-items: center; 
+        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="balance-area">
+    <div class="text-muted small fw-bold text-start">Current Virtual Balance</div>
+    <div class="balance-amount my-2">₱ {{ balance }}</div>
+    <div class="text-start">
+        <div class="d-flex justify-content-between small text-muted fw-bold">
+            <span>To Withdrawal</span><span>Target: ₱{{ target }}</span>
+        </div>
+        <div class="progress">
+            <div class="progress-bar" style="width: {{ progress }}%;"></div>
+        </div>
+    </div>
+    <button class="btn-withdraw mt-3"><i class="fas fa-money-bill-wave me-2"></i>Withdraw via Palawan Pawnshop</button>
+</div>
+
+<h6 class="fw-bold mt-4 mb-3 text-muted">Today's Missions</h6>
+<div class="task-card">
+    <div class="bg-light p-3 rounded-circle me-3"><i class="fas fa-headset fa-lg" style="color: var(--accent-orange);"></i></div>
+    <div class="flex-grow-1">
+        <h6 class="fw-bold mb-1">Chat Standby</h6>
+        <div class="small text-muted">Reward: ₱10 / 5 min</div>
+    </div>
+    <a href="{% url 'standby' %}" class="btn btn-sm rounded-pill text-white fw-bold px-3" style="background-color: var(--accent-orange);">Standby</a>
+</div>
+<div class="task-card">
+    <div class="bg-light p-3 rounded-circle me-3"><i class="fas fa-laptop-code fa-lg" style="color: var(--primary-turquoise);"></i></div>
+    <div class="flex-grow-1">
+        <h6 class="fw-bold mb-1">IT Skill Learning</h6>
+        <div class="small text-muted">Rank Score Up</div>
+    </div>
+    <a href="{% url 'learning' %}" class="btn btn-sm btn-outline-info rounded-pill fw-bold px-3">Study</a>
+</div>
+{% endblock %}
